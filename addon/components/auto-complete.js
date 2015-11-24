@@ -66,8 +66,12 @@ export default Ember.Component.extend({
       }
       self.set("visibility", HIDDEN);
       if (!self.get("selectedFromList") && !self.hasInputMatchingSuggestion()) {
-        self.set("inputVal", "");
-        self.set("selectedValue", "");
+        if (self.resetToDefaultSelection) {
+          self.resetToDefaultSelection();
+        } else {
+          self.set("inputVal", "");
+          self.set("selectedValue", "");
+        }
       }
     };
     focusOutEvent = Ember.run.later(this, func, 200);
